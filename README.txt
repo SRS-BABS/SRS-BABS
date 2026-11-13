@@ -1,36 +1,35 @@
-BABS website — deploy package (built 9 October 2026 from the 23 September export)
+Bachmann-Bupp Family Coalition website
+Live at https://bachmann-bupp.org (since 11 November 2026; HTTPS enforced since 13 November 2026)
 
-Contents
-  index.html                       the site (the standalone export, renamed)
-  assets/docs/ICPD-programme-2026.pdf
-  assets/video/coalition-2.mp4 / .webm / -poster.jpg
-  .nojekyll                        tells GitHub Pages to serve files as-is
+What this repository is
+  The whole public site. GitHub Pages serves the root of the main branch.
+  Repository: SRS-BABS/SRS-BABS (owned by the Snyder-Robinson Foundation account; site editor: Menachem Handler)
 
-Staging (no custom domain yet)
-  Repository: https://github.com/SRS-BABS/SRS-BABS  (created by Chris Abbott; must be PUBLIC —
-  GitHub Pages on a private repo needs a paid plan).
-  1. Upload everything in this folder to the root of that repository (keep the assets/ folder structure).
-  2. Settings -> Pages -> Build and deployment: Source = "Deploy from a branch", Branch = main, folder = / (root). Save.
-  3. After a minute or two the staging site is at  https://srs-babs.github.io/SRS-BABS/
-     (a "project site": the repo name is part of the path until a custom domain is attached).
-     Do NOT add a CNAME file or a custom domain at this stage.
+Files
+  index.html          the site (a single self-contained page; all pages are built inside it)
+  assets/docs/        ICPD-programme-2026.pdf
+  assets/video/       coalition-2 and roberto clips (.mp4, .webm, -poster.jpg)
+  robots.txt          allows search engines; points to the sitemap
+  sitemap.xml         the site address for search engines
+  CNAME               one line: bachmann-bupp.org.  DO NOT DELETE OR EDIT. Removing it takes the domain offline.
+  .nojekyll           tells GitHub Pages to serve files as they are
+  README.txt          this file
 
-Cutover (only after written approval from Michael and Sofia)
-  4. Settings -> Pages -> Custom domain: bachmann-bupp.org -> Save (GitHub creates the CNAME file itself).
-  5. In the Squarespace domain panel (Domains -> bachmann-bupp.org -> DNS settings):
-       FIRST screenshot the current records (that screenshot is the rollback). Then delete the Squarespace default records for @ (A) and www (CNAME), then add
-       A     @    185.199.108.153
-       A     @    185.199.109.153
-       A     @    185.199.110.153
-       A     @    185.199.111.153
-       CNAME www  srs-babs.github.io      (the account host only, never the repo name)
-  6. Back in GitHub Pages, wait for the DNS check to pass, then tick "Enforce HTTPS" (may take up to 24 h to become available).
-  7. Verify https://bachmann-bupp.org and https://www.bachmann-bupp.org both load the site with a valid certificate; log it.
+Updating the site
+  Replace index.html (and add any new files under assets/) through "Add file > Upload files" on main.
+  Changes appear on bachmann-bupp.org within a few minutes.
+  Do not change CNAME, and do not change the Pages settings.
 
-Rollback
-  Delete the GitHub records, re-enter the Squarespace records exactly as in the screenshot taken at step 5, and remove the custom domain in GitHub Pages.
+Domain and DNS (bachmann-bupp.org, registered and managed at Squarespace Domains)
+  A     @    185.199.108.153
+  A     @    185.199.109.153
+  A     @    185.199.110.153
+  A     @    185.199.111.153
+  CNAME www  srs-babs.github.io
+  The "Squarespace Domain Connect" and "Email Security" records are left in place.
+  www and http:// both forward to https://bachmann-bupp.org.
 
-Known gap carried in still-needed.html
-  The <video> element in index.html has no <source> tags (left as a comment in the Design build), so the clip will not play until the next Design export adds:
-     <source src="assets/video/coalition-2.webm" type="video/webm">
-     <source src="assets/video/coalition-2.mp4"  type="video/mp4">
+Security certificate
+  Issued automatically by GitHub (Let's Encrypt) and renewed automatically.
+  If it ever stops working: in Settings > Pages (owner account only), remove the custom domain,
+  add bachmann-bupp.org again, wait for "DNS check successful", then tick "Enforce HTTPS".
